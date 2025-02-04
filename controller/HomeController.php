@@ -14,10 +14,9 @@ class HomeController{
     public function doGET()
     {
         $data = $this->model->readAll();
-        json_encode($data);
-        $this->model->read($data);
-
+        echo json_encode($data);
         require "./view/home.php";
+
     }
     
     public function doPOST(){

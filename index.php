@@ -17,7 +17,6 @@ switch ($route) {
         break;
     
     case "home":
-        echo $_SERVER["REQUEST_METHOD"];
         default:
             require_once("./controller/HomeController.php");
             $controller = new HomeController();

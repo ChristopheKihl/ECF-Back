@@ -26,12 +26,9 @@ commande.addEventListener("click", Panier);
 
 (async function recupererPizza() { //Recupération des données JSON
     try {
-        let reponse = await fetch('../index.php?route=home', {
-            method: "POST",
-            headers: { Accept: "application/json" }
-        })
-            .then(reponse => reponse.json());
-        console.log(reponse);
+        // let reponse = await fetch('../index.php')
+        //     .then(reponse => reponse.json());
+        // console.log(reponse);
 
         // const resultats = await reponse.json();
 
@@ -59,8 +56,6 @@ commande.addEventListener("click", Panier);
 })();
 
 (function createMenu(data) { //Normalisation et traitement des données
-
-    console.log(data);
 
     for (let i = 0; i < data.length; i++) {
         let base = data[i].base;
