@@ -1,0 +1,207 @@
+@font-face {
+    font-family: 'chieezy';
+    src: url(../font/Chieezy\ Burger.ttf);
+}
+
+@font-face {
+    font-family: 'marchlike';
+    src: url(../font/Marchlike.ttf);
+}
+
+:root {
+    --vert: #05BE3C;
+}
+
+html,
+body,
+footer {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: 'chieezy';
+    font-size: clamp(1rem, -0.475rem + 2vw, 1.5rem);
+    color: white;
+}
+
+body {
+    background: center / cover url("../img/background.jpg");
+    background-size: 500px;
+    background-color: rgba(255, 255, 255, 0.3);
+    background-blend-mode: overlay;
+}
+
+h2 {
+    text-decoration: underline white;
+}
+
+h3,
+h4 {
+    font-family: 'chieezy';
+    margin-top: 10px;
+}
+
+i {
+    width: 10px;
+}
+
+.contours {
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+}
+
+#headerImg {
+    background: center / cover url("../img/header.jpg");
+    background-color: rgba(8, 8, 8, 0.6);
+    background-blend-mode: overlay;
+    height: 150px;
+}
+
+#header {
+    font-size: 2rem;
+    -webkit-text-stroke-width: 0.4px;
+    -webkit-text-stroke-color: black;
+}
+
+#header div:nth-child(1) {
+    color: var(--vert);
+}
+
+#header div:nth-child(2) {
+    color: white;
+}
+
+#header div:nth-child(3) {
+    font-family: 'marchlike';
+    color: red;
+}
+
+.navbar {
+    width: 100%;
+    border-bottom: 1px white solid;
+    background-color: #6b6a6a;
+    font-family: 'marchlike';
+    letter-spacing: 3px;
+    font-size: 1.2rem;
+    height: 60px;
+}
+
+.navbar-toggler:hover {
+    background-color: white;
+}
+
+.nav-link {
+    padding: 0;
+}
+
+.nav-item:hover {
+    border-radius: 25px;
+    background: linear-gradient(90deg, #05BE3C, white, red);
+}
+
+main {
+    margin-top: 50px;
+}
+
+#alimentation {
+    font-family: 'marchlike';
+}
+
+input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+}
+
+input[type="text"] {
+    border: none;
+    text-align: center;
+    color: black;
+}
+
+input[type="number"] {
+    background-color: #D9D9d9;
+    border: none;
+    width: 50px;
+}
+
+.card-g {
+    background-color: #D9D9d9;
+    border: 1px black solid;
+}
+
+.card-p {
+    border: 1px black solid;
+    font-family: 'marchlike';
+    width: 23rem;
+    letter-spacing: 2.5px;
+}
+
+.card-p img {
+    max-width: 100%;
+    /* width: 250px; */
+    max-height: 200px;
+}
+
+.regime_alimentaire img {
+    width: 2.5rem;
+}
+
+.card-title {
+    font-size: 2rem;
+    text-decoration: underline;
+}
+
+.card-text {
+    font-size: 1.5rem;
+}
+
+.card-footer {
+    font-family: 'chieezy';
+}
+
+.moins,
+.plus {
+    border: 1px black solid;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.quantite {
+    width: 1.5rem;
+}
+
+.prix {
+    width: 6rem;
+}
+
+li {
+    text-align: left;
+    list-style: none;
+}
+
+footer {
+    font-size: 10px;
+    letter-spacing: 3px;
+    height: 50px;
+    background-color: black;
+}
+
+footer img {
+    filter: invert(100%);
+    width: 25px;
+    color: white;
+}
+
+.modal {
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background-color: #6b6a6a;
+}
+
+.cardCom {
+    background-color: #D9D9d9;
+}
