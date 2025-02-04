@@ -24,27 +24,39 @@ cardTomate.addEventListener("click", choixPizza);
 commande.addEventListener("click", Panier);
 
 
-// (async function recupererPizza() { //Recupération des données JSON
-//     try {
-//         const resultats = await Promise.all([
-//             fetch('json/4fromages.json'),
-//             fetch('json/chevre_miel.json'),
-//             fetch('json/fermiere.json'),
-//             fetch('json/fullvegan.json'),
-//             fetch('json/marguerita.json'),
-//             fetch('json/napolitaine.json'),
-//             fetch('json/reine.json'),
-//             fetch('json/tikki_thai.json')
-//         ]);
-//         const data = await Promise.all(
-//             resultats.map(res => res.json())
-//         );
-//         tabDonnees = data;
-//         createMenu(data);
-//     } catch (erreur) {
-//         console.log(erreur);
-//     }
-// })();
+(async function recupererPizza() { //Recupération des données JSON
+    try {
+        let reponse = await fetch('../index.php?route=home', {
+            method: "POST",
+            headers: { Accept: "application/json" }
+        })
+            .then(reponse => reponse.json());
+        console.log(reponse);
+
+        // const resultats = await reponse.json();
+
+
+
+        // await Promise.all([
+        //     fetch('json/4fromages.json'),
+        //     fetch('json/chevre_miel.json'),
+        //     fetch('json/fermiere.json'),
+        //     fetch('json/fullvegan.json'),
+        //     fetch('json/marguerita.json'),
+        //     fetch('json/napolitaine.json'),
+        //     fetch('json/reine.json'),
+        //     fetch('json/tikki_thai.json')
+        // ]);
+        // const data = await Promise.all(
+        //     resultats.map(res => res.json())
+        // );
+
+        tabDonnees = data;
+        createMenu(data);
+    } catch (erreur) {
+        console.log(erreur);
+    }
+})();
 
 (function createMenu(data) { //Normalisation et traitement des données
 

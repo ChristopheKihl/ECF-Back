@@ -79,13 +79,16 @@
                         <div id="creme"
                             class="card-body d-flex flex-column gap-3 flex-wrap flex-md-row justify-content-around">
                             <?php
-                            var_dump($result);
+                            // var_dump($result);
                             // foreach ($result as $key) {
                             //     echo $key['nom_pizza'];
                             //     echo '<br>';
                             //     echo $key['nom_base'];
                             //     echo '<br>';
-                            //     echo $key['nom_ingredient'];
+                            //     echo $key['ingredients'];
+                            //     echo '<br>';
+                            //     echo $key['prix_pizza']. '€';
+                            //     echo '<br>';
                             // }
                             ?>
                         </div>

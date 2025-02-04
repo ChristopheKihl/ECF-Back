@@ -1,35 +1,27 @@
 <?php
 
 require_once ("./Database.php");
+require_once("./model/HomeModel.php");
 
 class HomeController{
+    private $model;
+
     function __construct()
     {
-        
+        $this->model = new HomeModel();
     }
 
     public function doGET()
     {
-        self::doPOST();
+        $data = $this->model->readAll();
+        json_encode($data);
+        $this->model->read($data);
+
+        require "./view/home.php";
     }
     
-    public function doPOST()
-    {
-        $db = Database::getInstance();
-        $stmt = $db->prepare(
-            "SELECT pizza.nom_pizza, base.nom_base, pizza.prix_pizza, GROUP_CONCAT(ingredient.nom_ingredient SEPARATOR ',') as ingredients
-            FROM pizza
-            JOIN base
-            ON base.id_base = pizza.id_base
-            JOIN compose
-            ON compose.id_pizza = pizza.id_pizza
-            JOIN ingredient
-            ON compose.id_ingredient = ingredient.id_ingredient
-            GROUP BY pizza.nom_pizza");
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-
-        require("./view/home.php");
+    public function doPOST(){
+        
     }
 }
 ?>
