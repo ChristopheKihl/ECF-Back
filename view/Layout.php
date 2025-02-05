@@ -1,5 +1,7 @@
 <?php
-session_start()
+session_start();
+
+// $_SESSION['user'] = 'MOI';
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +51,7 @@ session_start()
                     </li>
                     <li class="nav-item">
                         <button id="panier" class="nav-link" href="index.php?lol=lol" data-bs-toggle="modal"
-                            data-bs-target="#modale"><i class="bi bi-cart4 me-2"></i>Ma commande</button>
+                            data-bs-target="#modale"><i class="bi bi-cart4 me-2"></i></button>
                     </li>
                 </ul>
             </div>
@@ -93,7 +95,14 @@ session_start()
                     <div id="modaleContent" class="modal-body">
                     </div>
                     <div id="footerModale" class="modal-footer d-flex justify-content-center">
-                        <a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Commander</button></a>
+                    <?php
+                    if(isset($_SESSION['user'])){
+                        echo '<a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Commander</button></a>';
+                    }else{
+                        echo '<a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Créer un compte</button></a>';
+                        echo '<a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Créer un compte</button></a>';
+                    }
+                    ?>
                         
                     </div>
                 </div>
