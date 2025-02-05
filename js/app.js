@@ -26,53 +26,37 @@ commande.addEventListener("click", Panier);
 
 (async function recupererPizza() { //Recupération des données JSON
     try {
-        // let reponse = await fetch('../index.php')
-        //     .then(reponse => reponse.json());
-        // console.log(reponse);
+        let reponse = await fetch('index.php?route=pizza')
+            .then(reponse => reponse.json())
 
-        // const resultats = await reponse.json();
-
-
-
-        // await Promise.all([
-        //     fetch('json/4fromages.json'),
-        //     fetch('json/chevre_miel.json'),
-        //     fetch('json/fermiere.json'),
-        //     fetch('json/fullvegan.json'),
-        //     fetch('json/marguerita.json'),
-        //     fetch('json/napolitaine.json'),
-        //     fetch('json/reine.json'),
-        //     fetch('json/tikki_thai.json')
-        // ]);
-        // const data = await Promise.all(
-        //     resultats.map(res => res.json())
-        // );
-
+        const data = reponse;
         tabDonnees = data;
+
         createMenu(data);
     } catch (erreur) {
         console.log(erreur);
     }
 })();
 
-(function createMenu(data) { //Normalisation et traitement des données
+function createMenu(data) { //Normalisation et traitement des données
 
     for (let i = 0; i < data.length; i++) {
-        let base = data[i].base;
-        let prix = data[i].prix;
-        let devise = data[i].devise;
+        let base = data[i].nom_base;
+        let prix = parseFloat(data[i].prix_pizza);
+        let devise = '€';
         let ingredients = data[i].ingredients;
-        let nomPizza = (data[i].nom);
+        ingredients = ingredients.split(',');
+        let nomPizza = (data[i].nom_pizza);
         nomPizza = nomPizza.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); //normalisation du titre
-        let imagePizza = data[i].image;
-        let regime = data[i].options_diet;
+        let imagePizza = data[i].chemin_image;
 
-        createCard(base, prix, devise, ingredients, nomPizza, imagePizza, regime);
+
+        createCard(base, prix, devise, ingredients, nomPizza, imagePizza);
 
     }
-})();
+};
 
-function createCard(base, prix, devise, ingredients, nomPizza, imagePizza, regime) { //Création des cards pour affichage
+function createCard(base, prix, devise, ingredients, nomPizza, imagePizza) { //Création des cards pour affichage
     let cardTomate = document.getElementById("tomate");
     let cardCreme = document.getElementById("creme");
 
@@ -119,7 +103,7 @@ function createCard(base, prix, devise, ingredients, nomPizza, imagePizza, regim
     divChoixQuantite.classList.add('d-flex');
 
     // Creation du footer
-    divPrix.value = prix.toFixed(2) + ' ' + devise;
+    divPrix.value = prix + ' ' + devise;
     divPrix.setAttribute('type', 'text');
     divPrix.setAttribute('disabled', "");
     divPrix.classList.add('fs-4', 'prix');
@@ -149,30 +133,19 @@ function createCard(base, prix, devise, ingredients, nomPizza, imagePizza, regim
     imgPizza.setAttribute("alt", `Photo de ${nomPizza}`);
     divRegime.classList.add('d-flex', 'flex-row', 'regime_alimentaire', 'justify-content-around')
 
-    for (const key in regime) {
-        if (regime[key] === true) {
-            let imgAlimentation = img.cloneNode();
-            imgAlimentation.setAttribute('src', `img/regime_alimentaire/${key}.png`);
-            imgAlimentation.setAttribute('alt', `Logo de ${key}`);
-            imgAlimentation.classList.add('mt-3');
-            divRegime.appendChild(imgAlimentation);
-        }
+    // Création de la div Photo + regime alimentaire
+    divPhoto.classList.add('d-flex', 'flex-column', 'align-self-center');
+    divPhoto.appendChild(imgPizza);
 
-        // Création de la div Photo + regime alimentaire
-        divPhoto.classList.add('d-flex', 'flex-column', 'align-self-center');
-        divPhoto.appendChild(imgPizza);
-        divPhoto.appendChild(divRegime);
+    // Création de la div regroupant le tout
+    divCard.classList.add('card-body', 'd-flex', 'flex-row', 'justify-content-around');
+    divCard.appendChild(divPhoto);
+    divCard.appendChild(divIngredients);
 
-        // Création de la div regroupant le tout
-        divCard.classList.add('card-body', 'd-flex', 'flex-row', 'justify-content-around');
-        divCard.appendChild(divPhoto);
-        divCard.appendChild(divIngredients);
-
-        // Creation de la card
-        article.classList.add('card', 'card-p', 'd-flex', 'flex-column');
-        article.appendChild(divCard);
-        article.appendChild(divFooter);
-    }
+    // Creation de la card
+    article.classList.add('card', 'card-p', 'd-flex', 'flex-column');
+    article.appendChild(divCard);
+    article.appendChild(divFooter);
 
     if (base === "creme") {
         cardCreme.appendChild(article);
@@ -180,7 +153,10 @@ function createCard(base, prix, devise, ingredients, nomPizza, imagePizza, regim
     if (base === "tomate") {
         cardTomate.appendChild(article);
     }
+
 }
+
+// }
 
 function trier(event) { //Fonction qui permet de trier les pizza en fonction de ses régimes alimentaires
     let tabTrier = [];
@@ -305,7 +281,7 @@ function Panier() { //Partie gérant l'affichage du panier ()
         modale.innerHTML = "";
     })
 
-    commander.addEventListener("click", infoClient);
+    // commander.addEventListener("click", infoClient);
 
     let div = document.createElement('div');
     let image = document.createElement('i');

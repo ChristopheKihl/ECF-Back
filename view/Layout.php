@@ -1,3 +1,7 @@
+<?php
+session_start()
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -74,32 +78,7 @@
                     </div>
                 </section>
                 <section class="mt-3">
-                    <article class="card card-g mt-3">
-                        <h3>BASE CREME</h3>
-                        <div id="creme"
-                            class="card-body d-flex flex-column gap-3 flex-wrap flex-md-row justify-content-around">
-                            <?php
-                            // var_dump($data);
-                            foreach ($data as $key) {
-                                echo $key['nom_pizza'];
-                                echo '<br>';
-                                echo $key['nom_base'];
-                                echo '<br>';
-                                echo $key['ingredients'];
-                                echo '<br>';
-                                echo $key['prix_pizza']. '€';
-                                echo '<br>';
-                            }
-                            ?>
-                        </div>
-                    </article>
-
-                    <article class="card card-g mt-3">
-                        <h3>BASE TOMATE</h3>
-                        <div id="tomate"
-                            class="card-body d-flex flex-column gap-3 flex-wrap flex-md-row justify-content-around">
-                        </div>
-                    </article>
+                <?=$content ?>
                 </section>
             </article>
         </section>
@@ -107,12 +86,15 @@
         <div class="modal fade" id="modale" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-end">
+                    <button id="poursuivre" type="button" class="btn btn-outline-danger"
+                    data-bs-dismiss="modal"><i class="bi bi-x"></i></button>
+                    </div>
                     <div id="modaleContent" class="modal-body">
                     </div>
                     <div id="footerModale" class="modal-footer d-flex justify-content-center">
-                        <button id="commander" type="button" class="btn btn-outline-success">Commander</button>
-                        <button id="poursuivre" type="button" class="btn btn-outline-danger"
-                            data-bs-dismiss="modal">Poursuivre</button>
+                        <a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Commander</button></a>
+                        
                     </div>
                 </div>
             </div>
