@@ -11,7 +11,6 @@ class LoginModel{
                 $username = $_POST['user'];
                 $password = $_POST['password'];
                 // $password = password_hash($_POST['password'],PASSWORD_BCRYPT);
-                echo $password;
 
                 $db = Database::getInstance(); //se connecte a la Base de données
                 $stmt = $db->prepare(

@@ -13,7 +13,7 @@ $route = isset($_GET["route"]) ? $_GET["route"] : "home";
 
 switch ($route) {
     
-    case 'pizza': //Récupére les données des pizzas dans la BDD
+    case 'pizza': //Récupérer les données des pizzas dans la BDD
         require_once("./controller/PizzaController.php");
         $controller = new PizzaController();
         break;

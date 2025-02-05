@@ -3,7 +3,6 @@
 require_once ("./Database.php");
 
 class PizzaModel{
-    private $model;
 
     public function readAll() {
         try{

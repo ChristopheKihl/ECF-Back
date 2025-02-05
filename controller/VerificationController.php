@@ -31,7 +31,7 @@ class VerificationController{
         if($data){
             var_dump($data) ;
         }else {
-            echo 'VA TE FAIRE';
+            echo 'VA TE FAIRE FOUTRE !!!';
         }
     }
 }
