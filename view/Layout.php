@@ -61,19 +61,19 @@ session_start()
                 <h2 class="contours">Notre carte</h2>
                 <section id="alimentation" class="d-flex justify-content-around fs-3">
                     <div>
-                        <input type="checkbox" name="halal" id="halal">
+                        <input type="checkbox" name="halal" id="halal" disabled>
                         <label for="halal">Halal</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="vegane" id="vegane">
+                        <input type="checkbox" name="vegane" id="vegane" disabled>
                         <label for="vegane">Vegane</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="vegetarienne" id="vegetarienne">
+                        <input type="checkbox" name="vegetarienne" id="vegetarienne" disabled>
                         <label for="vegetarienne">Vegetarien</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="sans_Gluten" id="sans_gluten">
+                        <input type="checkbox" name="sans_Gluten" id="sans_gluten" disabled>
                         <label for="sans_gluten">Sans Gluten</label>
                     </div>
                 </section>

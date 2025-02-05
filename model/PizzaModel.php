@@ -7,7 +7,7 @@ class PizzaModel{
 
     public function readAll() {
         try{
-            $db = Database::getInstance();
+            $db = Database::getInstance(); //se connecte a la Base de données
             $stmt = $db->prepare(
                 "SELECT pizza.nom_pizza, base.nom_base, pizza.prix_pizza, images.chemin_image, images.description_image, GROUP_CONCAT(ingredient.nom_ingredient SEPARATOR ',') as ingredients
                 FROM pizza
@@ -25,10 +25,6 @@ class PizzaModel{
         } catch (PDOException $exc) {
             exit($exc->getMessage());
         }
-    }
-
-    public function read($data){
-        
     }
 }
 ?>

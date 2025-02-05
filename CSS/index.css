@@ -45,6 +45,10 @@ i {
     width: 10px;
 }
 
+a {
+    font-size: 12px;
+}
+
 .contours {
     -webkit-text-stroke-width: 0.5px;
     -webkit-text-stroke-color: black;

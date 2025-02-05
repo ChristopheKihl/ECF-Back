@@ -19,6 +19,7 @@ switch ($route) {
         break;
         
     case 'verification': //Vérifie si le client est déja authentifié ou non
+        
         require_once("./controller/VerificationController.php");
         $controller = new VerificationController();
         break;

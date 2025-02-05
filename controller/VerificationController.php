@@ -1,14 +1,14 @@
 <?php
 
 require_once ("./Database.php");
-require_once("./model/PizzaModel.php");
+require_once("./model/LoginModel.php");
 
 class VerificationController{
     private $model;
 
     function __construct()
     {
-        $this->model = new PizzaModel();
+        $this->model = new LoginModel();
     }
 
     public function doGET()
@@ -17,6 +17,7 @@ class VerificationController{
             echo 'CONNECTE';
         }else {
             $title = "Se connecter";
+            
             require("view/LoginView.php");
         }
         // $data = $this->model->readAll();
@@ -26,7 +27,12 @@ class VerificationController{
     }
     
     public function doPOST(){
-        
+        $data = $this->model->read();
+        if($data){
+            var_dump($data) ;
+        }else {
+            echo 'VA TE FAIRE';
+        }
     }
 }
 ?>
