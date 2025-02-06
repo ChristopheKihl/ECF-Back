@@ -24,11 +24,9 @@ cardCreme.addEventListener("click", choixPizza);
 cardTomate.addEventListener("click", choixPizza);
 commande.addEventListener("click", Panier);
 
-console.log(client);
 if (client !== null) {
     client.addEventListener("click", RecupInfoClient);
 }
-
 
 (async function recupererPizza() { //Recupération des données JSON
     try {
@@ -199,7 +197,6 @@ function choixPizza(event) {
             let check = document.createElement('i');
             check.classList.add('bi', 'bi-check2');
 
-            console.log(event);
             event.target.classList.remove('btn-success');
             event.target.classList.add('btn-danger');
             event.target.textContent = "";
@@ -276,8 +273,6 @@ function Panier() { //Partie gérant l'affichage du panier
     let user = document.getElementById("dejaclient");
 
     modale.innerHTML = "";
-
-    // commander.addEventListener("click", infoClient);
 
     let a = document.createElement('a');
     let div = document.createElement('div');
@@ -363,16 +358,20 @@ function Panier() { //Partie gérant l'affichage du panier
     divPrixTotal.appendChild(divCalculTotal);
     modale.appendChild(divPrixTotal);
 
-    console.log(user);
+    //TODO : Passer les données de TabCommande vers PHP
+
+    console.log(JSON.stringify(tabCommande));
+
 
     if (user === null) {
         let link = a.cloneNode();
         link.setAttribute('href', 'index.php?route=commande');
-        let com = button.cloneNode();
-        com.setAttribute('type', 'button');
-        com.classList.add('btn', 'btn-outline-success');
-        com.textContent = "Commander";
-        link.appendChild(com);
+        let commande = button.cloneNode();
+        commande.setAttribute('type', 'button');
+        commande.setAttribute('id', 'commande');
+        commande.classList.add('btn', 'btn-outline-success');
+        commande.textContent = "Commander";
+        link.appendChild(commande);
 
         footermodale.appendChild(link);
     }
@@ -470,66 +469,6 @@ async function RecupInfoClient() { //Recupère les infos clients dans la BDD
         console.log(erreur);
     }
 
-    // form.setAttribute('action', '#');
-    // form.classList.add('d-flex', 'flex-column')
-
-    // modale.appendChild(form);
-
-    // const tabInfos = ['nom', 'prenom', 'adresse', 'cp', 'ville', 'telephone', 'mail']
-
-    // for (let i = 0; i < tabInfos.length; i++) {
-
-    //     // let modale = document.getElementById("modaleContent");
-    //     let label = document.createElement('label');
-    //     let input = document.createElement('input');
-    //     let div = document.createElement('div');
-
-    //     label.classList.add('col-4');
-    //     label.setAttribute('for', tabInfos[i]);
-    //     label.textContent = tabInfos[i].toUpperCase();
-
-    //     input.classList.add('col-8');
-    //     if (tabInfos[i] === 'telephone') {
-    //         input.setAttribute('type', 'tel');
-    //     }
-    //     else if (tabInfos[i] === 'mail') {
-    //         input.setAttribute('type', 'email');
-    //     } else {
-    //         input.setAttribute('type', 'text');
-    //     }
-    //     input.setAttribute('name', tabInfos[i]);
-    //     input.setAttribute('id', tabInfos[i]);
-    //     input.setAttribute('required', "");
-
-    //     div.classList.add('row', 'mt-1');
-    //     div.appendChild(label);
-    //     div.appendChild(input);
-
-    //     form.appendChild(div);
-
-    // }
-    // let button = document.createElement('button');
-
-    // let buttonPayer = button.cloneNode();
-    // buttonPayer.setAttribute('id', 'cuisine');
-    // buttonPayer.setAttribute('type', 'submit');
-    // buttonPayer.classList.add('btn', 'btn-outline-success', 'mt-2');
-    // buttonPayer.textContent = 'Payer';
-
-    // let buttonPoursuivre = button.cloneNode();
-    // buttonPoursuivre.setAttribute('id', 'poursuivre');
-    // buttonPoursuivre.setAttribute('type', 'button');
-    // buttonPoursuivre.setAttribute('data-bs-dismiss', 'modal');
-    // buttonPoursuivre.classList.add('btn', 'btn-outline-danger', 'mt-2');
-    // buttonPoursuivre.textContent = 'Poursuivre';
-
-
-    // form.appendChild(buttonPayer);
-    // form.appendChild(buttonPoursuivre);
-    // footer.innerHTML = "";
-
-    // let cuisine = document.getElementById("cuisine");
-    // cuisine.addEventListener("click", envoiCuisine)
 }
 
 function envoiCuisine() { //Envoi des données pizza et client vers la cuisine
@@ -595,7 +534,6 @@ function envoiCuisine() { //Envoi des données pizza et client vers la cuisine
     buttonFin.addEventListener('click', () => {
         location.reload();
     })
-    console.log(modale);
 }
 
 function save(state) {
