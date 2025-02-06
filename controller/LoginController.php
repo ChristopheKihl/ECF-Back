@@ -28,6 +28,7 @@ class LoginController{
             session_start();
             $_SESSION['user'] = $data['prenom_client'];
             $_SESSION['mail'] = $data['email_client'];
+            $_SESSION['id'] = $data['id_client'];
             header("location:./index.php");
         }
     }

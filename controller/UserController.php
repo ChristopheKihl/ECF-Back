@@ -19,6 +19,11 @@ class userController{
     }
     
     public function doPOST(){
+        $data = $this->model->update();
+        if($data === true){
+            session_abort();
+            header("location:./index.php");
+        }
     }
 }
 ?>

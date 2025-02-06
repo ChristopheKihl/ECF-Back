@@ -19,5 +19,27 @@ class UserModel{
             exit($exc->getMessage());
         }
     }
+
+    public function update() {
+        session_start();
+        try{
+            $db = Database::getInstance(); //se connecte a la Base de données
+            $stmt = $db->prepare(
+                "UPDATE client
+                SET adresse_client = :adresse, telephone_client = :telephone, email_client = :mail
+                WHERE id_client = :id");
+            $stmt->bindValue(':adresse', $_POST['adresse'], PDO::PARAM_STR);
+            $stmt->bindValue(':telephone', $_POST['telephone_client'], PDO::PARAM_STR);
+            $stmt->bindValue(':mail', $_POST['email_client'], PDO::PARAM_STR);
+            $stmt->bindValue(':id', $_SESSION['id'], PDO::PARAM_STR);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $exc) {
+            exit($exc->getMessage());
+        }
+    }
 }
+
+
+
 ?>
