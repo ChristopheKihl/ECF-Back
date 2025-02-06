@@ -23,7 +23,8 @@ class RegisterController{
         if($userExist == false){
             $data = $this->model->create(); //Crée l'utilisateur dans la BDD
             session_start();
-            $_SESSION['user'] = $_POST['lastname'];
+            $_SESSION['user'] = $_POST['firstname'];
+            $_SESSION['mail'] = $_POST['mail'];
             header("location:./index.php");
         }else{
             $exist = 1;

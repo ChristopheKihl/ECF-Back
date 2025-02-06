@@ -12,6 +12,11 @@ require_once("./Database.php");
 $route = isset($_GET["route"]) ? $_GET["route"] : "home";
 
 switch ($route) {
+
+    case 'user': //Récupérer les données des pizzas dans la BDD
+        require_once("./controller/UserController.php");
+        $controller = new UserController();
+        break;
     
     case 'pizza': //Récupérer les données des pizzas dans la BDD
         require_once("./controller/PizzaController.php");

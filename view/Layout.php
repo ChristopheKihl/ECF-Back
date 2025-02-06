@@ -59,12 +59,10 @@ session_start();
                     <li class="nav-item">
                     <?php
                         if(isset($_SESSION['user'])){
-                            echo '<button class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modale"><i
+                            echo '<button id="client" class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modale"><i
                                     class="bi bi-person-fill me-2"></i></button>';
                         }
                         ?>
-                            <!-- <button class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modale"><i
-                                    class="bi bi-person-fill me-2"></i>Mon compte</button> -->
                     </li>
                     <li class="nav-item">
                         <button id="panier" class="nav-link" data-bs-toggle="modal"
@@ -126,10 +124,10 @@ session_start();
                     <div id="footerModale" class="modal-footer d-flex justify-content-center">
                     <?php
                     if(isset($_SESSION['user']) === true){
-                        echo '<a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Commander</button></a>';
+                        echo '<a href="index.php?route=verification"><button type="button" class="btn btn-outline-success">Commander</button></a>';
                     }else{
-                        echo '<a href="index.php?route=login"><button id="commander" type="button" class="btn btn-outline-info">DEJA CLIENT</button></a>';
-                        echo '<a href="index.php?route=register"><button id="commander" type="button" class="btn btn-outline-success">NOUVEAU CLIENT</button></a>';
+                        echo '<a href="index.php?route=login"><button type="button" class="btn btn-outline-info">DEJA CLIENT</button></a>';
+                        echo '<a href="index.php?route=register"><button type="button" class="btn btn-outline-success">NOUVEAU CLIENT</button></a>';
                     }
                     ?>
                         

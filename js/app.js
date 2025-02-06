@@ -16,12 +16,14 @@ if (tabCuisine === null) {
 let cardTomate = document.getElementById("tomate");
 let cardCreme = document.getElementById("creme");
 let commande = document.getElementById("panier");
+let client = document.getElementById("client");
 let optionAlimentation = document.getElementById("alimentation");
 
 optionAlimentation.addEventListener("click", trier);
 cardCreme.addEventListener("click", choixPizza);
 cardTomate.addEventListener("click", choixPizza);
 commande.addEventListener("click", Panier);
+client.addEventListener("click", RecupInfoClient);
 
 
 (async function recupererPizza() { //Recupération des données JSON
@@ -156,8 +158,6 @@ function createCard(base, prix, devise, ingredients, nomPizza, imagePizza) { //C
 
 }
 
-// }
-
 function trier(event) { //Fonction qui permet de trier les pizza en fonction de ses régimes alimentaires
     let tabTrier = [];
 
@@ -266,10 +266,8 @@ function ajouterPizza(prix, quantite, nomPizza) { // Envoi de la pizza vers le p
     save(1);
 }
 
-function Panier() { //Partie gérant l'affichage du panier ()
+function Panier() { //Partie gérant l'affichage du panier
     let modale = document.getElementById("modaleContent");
-    // let poursuivre = document.getElementById("poursuivre");
-    // let commander = document.getElementById("commander");
 
     modale.innerHTML = "";
 
@@ -375,74 +373,133 @@ function suppression(event) { //Suppression d'une pizza du panier
     Panier();
 }
 
-function infoClient() { //Gere le formulaire client
+async function RecupInfoClient() { //Recupère les infos clients dans la BDD
     let modale = document.getElementById("modaleContent");
     let footer = document.getElementById("footerModale");
 
-    let form = document.createElement('form');
+    // let form = document.createElement('form');
 
     modale.innerHTML = "";
 
-    form.setAttribute('action', '#');
-    form.classList.add('d-flex', 'flex-column')
+    try {
+        let reponse = await fetch('index.php?route=user')
+            .then(reponse => reponse.json())
 
-    modale.appendChild(form);
+        const data = reponse;
 
-    const tabInfos = ['nom', 'prenom', 'adresse', 'cp', 'ville', 'telephone', 'mail']
+        console.log(data[0].length);
 
-    for (let i = 0; i < tabInfos.length; i++) {
-
-        // let modale = document.getElementById("modaleContent");
         let label = document.createElement('label');
         let input = document.createElement('input');
+        let textarea = document.createElement('textarea');
         let div = document.createElement('div');
 
-        label.classList.add('col-4');
-        label.setAttribute('for', tabInfos[i]);
-        label.textContent = tabInfos[i].toUpperCase();
+        for (const [key, value] of Object.entries(data[0])) {
+            console.log(` ${value}`);
+            let ligne = div.cloneNode();
+            let colonne1 = div.cloneNode();
+            let colonne2 = div.cloneNode();
+            let valeur = input.cloneNode();
+            let intitule = label.cloneNode();
 
-        input.classList.add('col-8');
-        if (tabInfos[i] === 'telephone') {
-            input.setAttribute('type', 'tel');
+
+
+            ligne.classList.add('row');
+            colonne2.classList.add('col-12');
+            if (key !== 'adresse_client') {
+                valeur.setAttribute('type', 'text');
+                valeur.setAttribute('value', `${value}`);
+            } else {
+
+                textarea.setAttribute('name', 'adresse');
+                textarea.setAttribute('rows', '5');
+                textarea.setAttribute('value', `${value}`);
+                colonne2.appendChild(textarea);
+            }
+            if (key === 'nom_client' || key === 'prenom_client') {
+                valeur.setAttribute('disabled', '');
+            }
+
+            colonne2.appendChild(valeur);
+            ligne.appendChild(colonne1);
+            ligne.appendChild(colonne2);
+            modale.appendChild(ligne);
         }
-        else if (tabInfos[i] === 'mail') {
-            input.setAttribute('type', 'email');
-        } else {
-            input.setAttribute('type', 'text');
-        }
-        input.setAttribute('name', tabInfos[i]);
-        input.setAttribute('id', tabInfos[i]);
-        input.setAttribute('required', "");
 
-        div.classList.add('row', 'mt-1');
-        div.appendChild(label);
-        div.appendChild(input);
 
-        form.appendChild(div);
 
+
+
+
+
+
+        // console.log(data);
+        // console.log(data[0].nom_client);
+
+    } catch (erreur) {
+        console.log(erreur);
     }
-    let button = document.createElement('button');
 
-    let buttonPayer = button.cloneNode();
-    buttonPayer.setAttribute('id', 'cuisine');
-    buttonPayer.setAttribute('type', 'submit');
-    buttonPayer.classList.add('btn', 'btn-outline-success', 'mt-2');
-    buttonPayer.textContent = 'Payer';
+    // form.setAttribute('action', '#');
+    // form.classList.add('d-flex', 'flex-column')
 
-    let buttonPoursuivre = button.cloneNode();
-    buttonPoursuivre.setAttribute('id', 'poursuivre');
-    buttonPoursuivre.setAttribute('type', 'button');
-    buttonPoursuivre.setAttribute('data-bs-dismiss', 'modal');
-    buttonPoursuivre.classList.add('btn', 'btn-outline-danger', 'mt-2');
-    buttonPoursuivre.textContent = 'Poursuivre';
+    // modale.appendChild(form);
+
+    // const tabInfos = ['nom', 'prenom', 'adresse', 'cp', 'ville', 'telephone', 'mail']
+
+    // for (let i = 0; i < tabInfos.length; i++) {
+
+    //     // let modale = document.getElementById("modaleContent");
+    //     let label = document.createElement('label');
+    //     let input = document.createElement('input');
+    //     let div = document.createElement('div');
+
+    //     label.classList.add('col-4');
+    //     label.setAttribute('for', tabInfos[i]);
+    //     label.textContent = tabInfos[i].toUpperCase();
+
+    //     input.classList.add('col-8');
+    //     if (tabInfos[i] === 'telephone') {
+    //         input.setAttribute('type', 'tel');
+    //     }
+    //     else if (tabInfos[i] === 'mail') {
+    //         input.setAttribute('type', 'email');
+    //     } else {
+    //         input.setAttribute('type', 'text');
+    //     }
+    //     input.setAttribute('name', tabInfos[i]);
+    //     input.setAttribute('id', tabInfos[i]);
+    //     input.setAttribute('required', "");
+
+    //     div.classList.add('row', 'mt-1');
+    //     div.appendChild(label);
+    //     div.appendChild(input);
+
+    //     form.appendChild(div);
+
+    // }
+    // let button = document.createElement('button');
+
+    // let buttonPayer = button.cloneNode();
+    // buttonPayer.setAttribute('id', 'cuisine');
+    // buttonPayer.setAttribute('type', 'submit');
+    // buttonPayer.classList.add('btn', 'btn-outline-success', 'mt-2');
+    // buttonPayer.textContent = 'Payer';
+
+    // let buttonPoursuivre = button.cloneNode();
+    // buttonPoursuivre.setAttribute('id', 'poursuivre');
+    // buttonPoursuivre.setAttribute('type', 'button');
+    // buttonPoursuivre.setAttribute('data-bs-dismiss', 'modal');
+    // buttonPoursuivre.classList.add('btn', 'btn-outline-danger', 'mt-2');
+    // buttonPoursuivre.textContent = 'Poursuivre';
 
 
-    form.appendChild(buttonPayer);
-    form.appendChild(buttonPoursuivre);
-    footer.innerHTML = "";
+    // form.appendChild(buttonPayer);
+    // form.appendChild(buttonPoursuivre);
+    // footer.innerHTML = "";
 
-    let cuisine = document.getElementById("cuisine");
-    cuisine.addEventListener("click", envoiCuisine)
+    // let cuisine = document.getElementById("cuisine");
+    // cuisine.addEventListener("click", envoiCuisine)
 }
 
 function envoiCuisine() { //Envoi des données pizza et client vers la cuisine
