@@ -161,10 +161,6 @@ function createCard(base, prix, devise, ingredients, nomPizza, imagePizza) { //C
 function trier(event) { //Fonction qui permet de trier les pizza en fonction de ses régimes alimentaires
     let tabTrier = [];
 
-    console.log(event);
-
-    console.log(event.target);
-
     cardCreme.innerHTML = "";
     cardTomate.innerHTML = "";
 

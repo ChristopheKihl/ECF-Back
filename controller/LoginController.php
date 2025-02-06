@@ -3,7 +3,7 @@
 require_once ("./Database.php");
 require_once("./model/LoginModel.php");
 
-class VerificationController{
+class LoginController{
     private $model;
 
     function __construct()
@@ -11,11 +11,7 @@ class VerificationController{
         $this->model = new LoginModel();
     }
 
-    public function doGET()
-    {
-        if(isset($_SESSION)){
-            echo 'CONNECTE';
-        }else {
+    public function doGET(){
             $title = "Se connecter";
             
             require("view/LoginView.php");
@@ -24,12 +20,11 @@ class VerificationController{
         // header('Content-type: application/json');
         // echo json_encode($data);
 
-    }
     
     public function doPOST(){
         $data = $this->model->read();
         if($data){
-            var_dump($data) ;
+            echo 'OK !!!';
         }else {
             echo 'VA TE FAIRE FOUTRE !!!';
         }

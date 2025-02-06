@@ -5,9 +5,17 @@ ob_start();
     <div class="card-header">
         <?= $title ?>
     </div>
+    <?php
+
+    if(isset($exist)){
+        echo '<div class="alert alert-danger" role="alert">
+                L\'UTILISATEUR EST DEJA EXISTANT
+            </div>';
+    }
+    ?>
     <form action="index.php?route=verification" method="post">
         <div class="card-body">
-            <div class="row">
+            <div class="row mb-1">
                 <div class="col-6">
                     <label for="user">Email </label>
                 </div>
@@ -31,11 +39,10 @@ ob_start();
         </div>
     </form> 
             <div class="row p-3">
-                <a href="#">CREER UN COMPTE</a>
+                <a href="index.php?route=register">CREER UN COMPTE</a>
             </div>
 </article>
 <?php
 $content = ob_get_clean();
 include "Layout.php";
-
 ?>

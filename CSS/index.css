@@ -47,6 +47,7 @@ i {
 
 a {
     font-size: 12px;
+    text-decoration: none;
 }
 
 .contours {
@@ -88,7 +89,9 @@ a {
     letter-spacing: 3px;
     font-size: 1.2rem;
     height: 60px;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
 
 .navbar-toggler:hover {
     background-color: white;
@@ -116,8 +119,13 @@ input[type="checkbox"] {
     height: 1rem;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
     border: none;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     color: black;
 }

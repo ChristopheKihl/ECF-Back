@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// $_SESSION['user'] = 'MOI';
 ?>
 
 <!DOCTYPE html>
@@ -28,14 +27,16 @@ session_start();
 
 <body>
     <header>
-        <section id="headerImg" class="row">
-            <article id="header"
-                class="contours d-flex flex-column flex-lg-row align-items-center justify-content-around">
-                <div>Bienvenue</div>
-                <div>PIZZERIA BELLA NOTTE</div>
-                <div>Le veritable gout de l'Italie directement sortie du four</div>
-            </article>
-        </section>
+        <a href="index.php">
+            <section id="headerImg" class="row">
+                <article id="header"
+                    class="contours d-flex flex-column flex-lg-row align-items-center justify-content-around">
+                    <div>Bienvenue</div>
+                    <div>PIZZERIA BELLA NOTTE</div>
+                    <div>Le veritable gout de l'Italie directement sortie du four</div>
+                </article>
+            </section>
+        </a>
     </header>
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid justify-content-end">
@@ -44,13 +45,23 @@ session_start();
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse text-center justify-content-lg-end mt-2" id="navbarNav">
+                <div class="m-auto">
+                    Bonjour,
+                        <?php
+                        if(isset($_SESSION['user'])){
+                            echo $_SESSION['user'];
+                        }else{
+                            echo 'invité';
+                        }
+                        ?>
+                </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                             <!-- <button class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modale"><i
                                     class="bi bi-person-fill me-2"></i>Mon compte</button> -->
                     </li>
                     <li class="nav-item">
-                        <button id="panier" class="nav-link" href="index.php?lol=lol" data-bs-toggle="modal"
+                        <button id="panier" class="nav-link" data-bs-toggle="modal"
                             data-bs-target="#modale"><i class="bi bi-cart4 me-2"></i></button>
                     </li>
                 </ul>
@@ -60,8 +71,16 @@ session_start();
     <main>
         <section class="row">
             <article class="text-center col-10 m-auto">
-                <h2 class="contours">Notre carte</h2>
-                <section id="alimentation" class="d-flex justify-content-around fs-3">
+                <h2 class="contours">
+                    <?php
+                    if(isset($title)){
+                        echo $title;
+                    }else {
+                        echo 'Notre carte';
+                    }  ?>
+                
+                </h2>
+                <section id="alimentation" class="d-flex justify-content-around fs-3 visually-hidden">
                     <div>
                         <input type="checkbox" name="halal" id="halal" disabled>
                         <label for="halal">Halal</label>
@@ -89,18 +108,22 @@ session_start();
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header d-flex justify-content-end">
-                    <button id="poursuivre" type="button" class="btn btn-outline-danger"
-                    data-bs-dismiss="modal"><i class="bi bi-x"></i></button>
+                    <div class="m-auto">
+                        Votre commande
+                    </div>
+                    <button id="poursuivre" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                        <i class="bi bi-x"></i>
+                    </button>
                     </div>
                     <div id="modaleContent" class="modal-body">
                     </div>
                     <div id="footerModale" class="modal-footer d-flex justify-content-center">
                     <?php
-                    if(isset($_SESSION['user'])){
+                    if(isset($_SESSION['user']) === true){
                         echo '<a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Commander</button></a>';
                     }else{
-                        echo '<a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Créer un compte</button></a>';
-                        echo '<a href="index.php?route=verification"><button id="commander" type="button" class="btn btn-outline-success">Créer un compte</button></a>';
+                        echo '<a href="index.php?route=login"><button id="commander" type="button" class="btn btn-outline-info">DEJA CLIENT</button></a>';
+                        echo '<a href="index.php?route=register"><button id="commander" type="button" class="btn btn-outline-success">NOUVEAU CLIENT</button></a>';
                     }
                     ?>
                         

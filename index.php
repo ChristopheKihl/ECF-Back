@@ -18,10 +18,14 @@ switch ($route) {
         $controller = new PizzaController();
         break;
         
-    case 'verification': //Vérifie si le client est déja authentifié ou non
-        
-        require_once("./controller/VerificationController.php");
-        $controller = new VerificationController();
+    case 'login': //Envoi vers le formulaire d'authentification
+        require_once("./controller/LoginController.php");
+        $controller = new LoginController();
+        break;
+
+    case 'register': //Envoi vers le formulaire d'authentification
+        require_once("./controller/RegisterController.php");
+        $controller = new RegisterController();
         break;
 
     case "home": //Affichage du site
