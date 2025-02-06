@@ -7,13 +7,17 @@ ob_start();
     </div>
     <?php
 
-    if(isset($exist)){
+    if(isset($exist) && ($exist === 1)){
         echo '<div class="alert alert-danger" role="alert">
-                L\'UTILISATEUR EST DEJA EXISTANT
+                L\'UTILISATEUR EXISTE DEJA
+            </div>';
+    }elseif(isset($exist) && ($exist === 2)){
+        echo '<div class="alert alert-danger" role="alert">
+                L\'ADRESSE MAIL OU LE MOT DE PASSE SONT INCORRECTS
             </div>';
     }
     ?>
-    <form action="index.php?route=verification" method="post">
+    <form action="index.php?route=login" method="post">
         <div class="card-body">
             <div class="row mb-1">
                 <div class="col-6">

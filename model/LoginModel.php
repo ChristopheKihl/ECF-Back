@@ -7,20 +7,22 @@ class LoginModel{
 
     public function read() {
         try{
-            if(!isset($_POST['username']) && isset($_POST['password'])) {
-                $username = $_POST['user'];
-                $password = $_POST['password'];
+            if(isset($_POST['user']) && isset($_POST['password'])) {
                 // $password = password_hash($_POST['password'],PASSWORD_BCRYPT);
 
                 $db = Database::getInstance(); //se connecte a la Base de données
                 $stmt = $db->prepare(
-                    "SELECT prenom_client, email_client, mot_de_passe_client
+                    "SELECT *
                     FROM client
-                    WHERE email_client = :username AND mot_de_passe_client = :password");
-                $stmt->bindValue(':username', $username, PDO::PARAM_STR);
-                $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+                    WHERE email_client = :username");
+                $stmt->bindValue(':username', $_POST['user'], PDO::PARAM_STR);
                 $stmt->execute();
-                return $stmt->fetch();
+                $data =  $stmt->fetch();
+                if($data && $data['email_client'] === $_POST['user'] && password_verify($_POST['password'], $data['mot_de_passe_client'])){ //Si User et MDP sont OK
+                    return $data;
+                }else{ // Si User et MDP sont NOk
+                    return false;
+                }
             }
         } catch (PDOException $exc) {
             exit($exc->getMessage());

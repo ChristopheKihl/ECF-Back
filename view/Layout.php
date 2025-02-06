@@ -57,6 +57,12 @@ session_start();
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
+                    <?php
+                        if(isset($_SESSION['user'])){
+                            echo '<button class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modale"><i
+                                    class="bi bi-person-fill me-2"></i></button>';
+                        }
+                        ?>
                             <!-- <button class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modale"><i
                                     class="bi bi-person-fill me-2"></i>Mon compte</button> -->
                     </li>

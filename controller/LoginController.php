@@ -16,17 +16,18 @@ class LoginController{
             
             require("view/LoginView.php");
         }
-        // $data = $this->model->readAll();
-        // header('Content-type: application/json');
-        // echo json_encode($data);
 
     
     public function doPOST(){
         $data = $this->model->read();
-        if($data){
-            echo 'OK !!!';
-        }else {
-            echo 'VA TE FAIRE FOUTRE !!!';
+        if($data === false){
+            $exist = 2;
+            $title = 'Se connecter';
+            include ("view/LoginView.php");
+        }else{
+            session_start();
+            $_SESSION['user'] = $data['prenom_client'];
+            header("location:./index.php");
         }
     }
 }

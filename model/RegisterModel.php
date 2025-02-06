@@ -40,7 +40,7 @@ class RegisterModel{
             $stmt->bindValue(':adresse', $_POST['adresse'], PDO::PARAM_STR);
             $stmt->bindValue(':phone', $_POST['phone'], PDO::PARAM_STR);
             $stmt->bindValue(':mail', $_POST['mail'], PDO::PARAM_STR);
-            $stmt->bindValue(':pass', password_hash($_POST['password'],PASSWORD_BCRYPT), PDO::PARAM_STR);
+            $stmt->bindValue(':pass', password_hash($_POST['password'],PASSWORD_DEFAULT), PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetch();
         } catch (PDOException $exc) {

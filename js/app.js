@@ -268,14 +268,10 @@ function ajouterPizza(prix, quantite, nomPizza) { // Envoi de la pizza vers le p
 
 function Panier() { //Partie gérant l'affichage du panier ()
     let modale = document.getElementById("modaleContent");
-    let poursuivre = document.getElementById("poursuivre");
-    let commander = document.getElementById("commander");
+    // let poursuivre = document.getElementById("poursuivre");
+    // let commander = document.getElementById("commander");
 
     modale.innerHTML = "";
-
-    poursuivre.addEventListener("click", () => {
-        modale.innerHTML = "";
-    })
 
     // commander.addEventListener("click", infoClient);
 

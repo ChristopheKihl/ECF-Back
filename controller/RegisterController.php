@@ -20,16 +20,15 @@ class RegisterController{
     public function doPOST(){
         $userExist = $this->model->read(); //Vérifie si l'utilisateur existe déjà dans la BDD
 
-        var_dump($userExist);
-
-        if($userExist){
-            $exist = true;
+        if($userExist == false){
+            $data = $this->model->create(); //Crée l'utilisateur dans la BDD
+            session_start();
+            $_SESSION['user'] = $_POST['lastname'];
+            header("location:./index.php");
+        }else{
+            $exist = 1;
             $title = 'Se connecter';
             include ("view/LoginView.php");
-        }else{
-            $data = $this->model->create(); //Crée l'utilisateur dans la BDD
-                $_SESSION['user'] = $_POST['firstname'];
-            include ("index.php");
         }
     }
 }
