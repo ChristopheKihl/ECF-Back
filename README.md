@@ -23,17 +23,19 @@ Le but du projet est de créer une application web pour une pizzeria permettant 
     - Animations de l'interface client.
     - Intégration avec une base de données SQL.
 
-## Représentation MCD/MLD/MPD
+## Représentation MCD/MLD/MPD et dictionnaire de données
+
+### Dictionnaire de données
+![Maquette client desktop](img/MERISE/DictionnaireDonnées.PNG  "Dictionnaire de données")
 
 ### Modèle Conceptuel de Données (MCD)
-![Maquette client mobile](img/maquettage/mobile-client.JPG "Maquette mobile page client")
+![Maquette client mobile](img/MERISE/MCD.PNG "Modèle Conceptuel de Données")
 
 ### Modèle Logique de Données (MLD)
-![Maquette client tablette](img/maquettage/tablette-client.JPG  "Maquette tablette page client")
+![Maquette client tablette](img/MERISE/MLD.PNG  "Modèle Logique de Données")
 
 ### Modèle Physique de Données (MPD)
-![Maquette client desktop](img/maquettage/desktop-client.JPG  "Maquette desktop page client")
-![Maquette client tablette](img/maquettage/desktop-cuisine.JPG "Maquette desktop page cuisine")
+![Maquette client desktop](img/MERISE/MPD.PNG  "Modèle Conceptuel de Données")
 
 
 ## Structure du projet
@@ -66,6 +68,11 @@ Voici la structure du projet :
   │    │      ├── modale-commande.jpg
   │    │      ├── modale-renseignements.jpg
   │    │      └── tablette-client.jpg
+  │    ├── MERISE/ # Images du modèle MERISE
+  │    │      ├── DictionnaireDonnées.PNG
+  │    │      ├── MCD.PNG
+  │    │      ├── MLD.PNG
+  │    │      └── MPD.PNG
   │    ├── pizza/ # Images des pizzas
   │    │      ├── 4fromages.jpg
   │    │      ├── chevre_miel.jpg
