@@ -6,12 +6,13 @@ ob_start();
         <?= $title ?>
     </div>
     <?php
-
-    if(isset($exist) && ($exist === 1)){
+    // Affiche un message d'erreur si l'utilisateur existe déjà
+    if (isset($exist) && ($exist === 1)) {
         echo '<div class="alert alert-danger" role="alert">
                 L\'UTILISATEUR EXISTE DEJA
             </div>';
-    }elseif(isset($exist) && ($exist === 2)){
+    // Affiche un message d'erreur si l'adresse mail ou le mot de passe sont incorrects
+    } elseif (isset($exist) && ($exist === 2)) {
         echo '<div class="alert alert-danger" role="alert">
                 L\'ADRESSE MAIL OU LE MOT DE PASSE SONT INCORRECTS
             </div>';
@@ -27,7 +28,7 @@ ob_start();
                     <input type="text" name="user" id="user">
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-1">
                 <div class="col-6">
                     <label for="password">Mot de passe </label>
                 </div>
@@ -38,13 +39,13 @@ ob_start();
         </div>
         <div class="card-footer">
             <div class="row">
-                    <button type="submit" class="btn btn-outline-success col-4 m-auto">Valider</button>
+                <button type="submit" class="btn btn-outline-success col-4 m-auto">Valider</button>
             </div>
         </div>
-    </form> 
-            <div class="row p-3">
-                <a href="index.php?route=register">CREER UN COMPTE</a>
-            </div>
+    </form>
+    <div class="row p-3">
+        <a href="index.php?route=register">CREER UN COMPTE</a>
+    </div>
 </article>
 <?php
 $content = ob_get_clean();

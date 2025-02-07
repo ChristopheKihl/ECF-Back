@@ -23,8 +23,10 @@ optionAlimentation.addEventListener("click", trier);
 cardCreme.addEventListener("click", choixPizza);
 cardTomate.addEventListener("click", choixPizza);
 commande.addEventListener("click", Panier);
-client.addEventListener("click", RecupInfoClient);
 
+if (client !== null) {
+    client.addEventListener("click", RecupInfoClient);
+}
 
 (async function recupererPizza() { //Recupération des données JSON
     try {
@@ -195,7 +197,6 @@ function choixPizza(event) {
             let check = document.createElement('i');
             check.classList.add('bi', 'bi-check2');
 
-            console.log(event);
             event.target.classList.remove('btn-success');
             event.target.classList.add('btn-danger');
             event.target.textContent = "";
@@ -268,11 +269,12 @@ function ajouterPizza(prix, quantite, nomPizza) { // Envoi de la pizza vers le p
 
 function Panier() { //Partie gérant l'affichage du panier
     let modale = document.getElementById("modaleContent");
+    let footermodale = document.getElementById("footerModale");
+    let user = document.getElementById("dejaclient");
 
     modale.innerHTML = "";
 
-    // commander.addEventListener("click", infoClient);
-
+    let a = document.createElement('a');
     let div = document.createElement('div');
     let image = document.createElement('i');
     let hr = document.createElement('hr');
@@ -338,9 +340,11 @@ function Panier() { //Partie gérant l'affichage du panier
 
         divCardGenerale.classList.add('card', 'cardCom', 'mt-2');
         divCardGenerale.appendChild(divCardBody);
+
         modale.appendChild(divCardGenerale);
 
     }
+
 
     modale.appendChild(hr);
     divPrixTotal.classList.add('d-flex', 'flex-row', 'text-danger', 'fs-4');
@@ -353,6 +357,24 @@ function Panier() { //Partie gérant l'affichage du panier
     divPrixTotal.appendChild(divTitreTotal);
     divPrixTotal.appendChild(divCalculTotal);
     modale.appendChild(divPrixTotal);
+
+    //TODO : Passer les données de TabCommande vers PHP
+
+    console.log(JSON.stringify(tabCommande));
+
+
+    if (user === null) {
+        let link = a.cloneNode();
+        link.setAttribute('href', 'index.php?route=commande');
+        let commande = button.cloneNode();
+        commande.setAttribute('type', 'button');
+        commande.setAttribute('id', 'commande');
+        commande.classList.add('btn', 'btn-outline-success');
+        commande.textContent = "Commander";
+        link.appendChild(commande);
+
+        footermodale.appendChild(link);
+    }
 
     let poubelle = document.querySelectorAll(".trash");
 
@@ -377,9 +399,8 @@ async function RecupInfoClient() { //Recupère les infos clients dans la BDD
     let modale = document.getElementById("modaleContent");
     let footer = document.getElementById("footerModale");
 
-    // let form = document.createElement('form');
-
     modale.innerHTML = "";
+    footer.innerHTML = "";
 
     try {
         let reponse = await fetch('index.php?route=user')
@@ -387,119 +408,67 @@ async function RecupInfoClient() { //Recupère les infos clients dans la BDD
 
         const data = reponse;
 
-        console.log(data[0].length);
-
-        let label = document.createElement('label');
         let input = document.createElement('input');
         let textarea = document.createElement('textarea');
         let div = document.createElement('div');
+        let form = document.createElement('form');
+        let button = document.createElement('button');
+        let a = document.createElement('a');
+
+        form.setAttribute('action', 'index.php?route=user');
+        form.setAttribute('method', 'post');
 
         for (const [key, value] of Object.entries(data[0])) {
-            console.log(` ${value}`);
             let ligne = div.cloneNode();
-            let colonne1 = div.cloneNode();
-            let colonne2 = div.cloneNode();
+            let colonne = div.cloneNode();
             let valeur = input.cloneNode();
-            let intitule = label.cloneNode();
 
-
-
-            ligne.classList.add('row');
-            colonne2.classList.add('col-12');
-            if (key !== 'adresse_client') {
-                valeur.setAttribute('type', 'text');
-                valeur.setAttribute('value', `${value}`);
-            } else {
-
-                textarea.setAttribute('name', 'adresse');
-                textarea.setAttribute('rows', '5');
-                textarea.setAttribute('value', `${value}`);
-                colonne2.appendChild(textarea);
-            }
+            ligne.classList.add('row', 'mb-1');
+            colonne.classList.add('col-9', 'm-auto');
             if (key === 'nom_client' || key === 'prenom_client') {
+                valeur.setAttribute('name', `${key}`);
                 valeur.setAttribute('disabled', '');
             }
 
-            colonne2.appendChild(valeur);
-            ligne.appendChild(colonne1);
-            ligne.appendChild(colonne2);
-            modale.appendChild(ligne);
+            if (key !== 'adresse_client') {
+                valeur.setAttribute('type', 'text');
+                valeur.setAttribute('value', `${value}`);
+                valeur.setAttribute('name', `${key}`);
+            } else {
+                textarea.setAttribute('name', 'adresse');
+                textarea.setAttribute('rows', '2');
+                textarea.textContent = `${value}`;
+            }
+
+            if (key !== 'adresse_client') {
+                colonne.appendChild(valeur);
+            } else {
+                colonne.appendChild(textarea);
+            }
+            ligne.appendChild(colonne);
+            form.appendChild(ligne);
         }
 
+        let modifier = button.cloneNode();
+        modifier.setAttribute('type', 'submit');
+        modifier.classList.add('btn', 'btn-outline-danger', 'col-12', 'mt-2', 'm-auto');
+        modifier.textContent = "Modifier";
+        form.appendChild(modifier);
+        modale.appendChild(form);
 
+        a.setAttribute('href', 'index.php?route=logout');
+        let deconnexion = button.cloneNode();
+        deconnexion.setAttribute('type', 'button');
+        deconnexion.classList.add('btn', 'btn-outline-info');
+        deconnexion.textContent = "SE DECONNECTER";
+        a.appendChild(deconnexion);
 
-
-
-
-
-
-        // console.log(data);
-        // console.log(data[0].nom_client);
+        footer.appendChild(a);
 
     } catch (erreur) {
         console.log(erreur);
     }
 
-    // form.setAttribute('action', '#');
-    // form.classList.add('d-flex', 'flex-column')
-
-    // modale.appendChild(form);
-
-    // const tabInfos = ['nom', 'prenom', 'adresse', 'cp', 'ville', 'telephone', 'mail']
-
-    // for (let i = 0; i < tabInfos.length; i++) {
-
-    //     // let modale = document.getElementById("modaleContent");
-    //     let label = document.createElement('label');
-    //     let input = document.createElement('input');
-    //     let div = document.createElement('div');
-
-    //     label.classList.add('col-4');
-    //     label.setAttribute('for', tabInfos[i]);
-    //     label.textContent = tabInfos[i].toUpperCase();
-
-    //     input.classList.add('col-8');
-    //     if (tabInfos[i] === 'telephone') {
-    //         input.setAttribute('type', 'tel');
-    //     }
-    //     else if (tabInfos[i] === 'mail') {
-    //         input.setAttribute('type', 'email');
-    //     } else {
-    //         input.setAttribute('type', 'text');
-    //     }
-    //     input.setAttribute('name', tabInfos[i]);
-    //     input.setAttribute('id', tabInfos[i]);
-    //     input.setAttribute('required', "");
-
-    //     div.classList.add('row', 'mt-1');
-    //     div.appendChild(label);
-    //     div.appendChild(input);
-
-    //     form.appendChild(div);
-
-    // }
-    // let button = document.createElement('button');
-
-    // let buttonPayer = button.cloneNode();
-    // buttonPayer.setAttribute('id', 'cuisine');
-    // buttonPayer.setAttribute('type', 'submit');
-    // buttonPayer.classList.add('btn', 'btn-outline-success', 'mt-2');
-    // buttonPayer.textContent = 'Payer';
-
-    // let buttonPoursuivre = button.cloneNode();
-    // buttonPoursuivre.setAttribute('id', 'poursuivre');
-    // buttonPoursuivre.setAttribute('type', 'button');
-    // buttonPoursuivre.setAttribute('data-bs-dismiss', 'modal');
-    // buttonPoursuivre.classList.add('btn', 'btn-outline-danger', 'mt-2');
-    // buttonPoursuivre.textContent = 'Poursuivre';
-
-
-    // form.appendChild(buttonPayer);
-    // form.appendChild(buttonPoursuivre);
-    // footer.innerHTML = "";
-
-    // let cuisine = document.getElementById("cuisine");
-    // cuisine.addEventListener("click", envoiCuisine)
 }
 
 function envoiCuisine() { //Envoi des données pizza et client vers la cuisine
@@ -565,7 +534,6 @@ function envoiCuisine() { //Envoi des données pizza et client vers la cuisine
     buttonFin.addEventListener('click', () => {
         location.reload();
     })
-    console.log(modale);
 }
 
 function save(state) {

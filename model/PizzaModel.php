@@ -2,11 +2,21 @@
 
 require_once ("./Database.php");
 
-class PizzaModel{
+/**
+ * Class PizzaModel
+ *
+ * Modèle pour gérer les opérations liées aux pizzas.
+ */
+class PizzaModel {
 
+    /**
+     * Récupère toutes les pizzas et leurs informations associées.
+     *
+     * @return array Les données de toutes les pizzas.
+     */
     public function readAll() {
-        try{
-            $db = Database::getInstance(); //se connecte a la Base de données
+        try {
+            $db = Database::getInstance(); // Se connecte à la base de données
             $stmt = $db->prepare(
                 "SELECT pizza.nom_pizza, base.nom_base, pizza.prix_pizza, images.chemin_image, images.description_image, GROUP_CONCAT(ingredient.nom_ingredient SEPARATOR ',') as ingredients
                 FROM pizza
@@ -18,7 +28,8 @@ class PizzaModel{
                 ON compose.id_ingredient = ingredient.id_ingredient
                 JOIN images
                 ON images.image_pizza = pizza.id_pizza
-                GROUP BY pizza.nom_pizza");
+                GROUP BY pizza.nom_pizza"
+            );
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (PDOException $exc) {

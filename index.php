@@ -23,14 +23,19 @@ switch ($route) {
         $controller = new PizzaController();
         break;
         
+    case 'register': //Envoi vers le formulaire d'authentification
+        require_once("./controller/RegisterController.php");
+        $controller = new RegisterController();
+        break;
+        
     case 'login': //Envoi vers le formulaire d'authentification
         require_once("./controller/LoginController.php");
         $controller = new LoginController();
         break;
 
-    case 'register': //Envoi vers le formulaire d'authentification
-        require_once("./controller/RegisterController.php");
-        $controller = new RegisterController();
+    case 'logout': //Envoi vers le formulaire d'authentification
+        require_once("./controller/LogoutController.php");
+        $controller = new LogoutController();
         break;
 
     case "home": //Affichage du site
