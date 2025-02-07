@@ -2,8 +2,20 @@
 
 require_once ("./Database.php");
 
+/**
+ * Class CommandeModel
+ *
+ * Modèle pour interagir avec la table des commandes dans la base de données.
+ */
 class CommandeModel {
 
+    /**
+     * Lit les enregistrements de la table clients en fonction d'une clé et d'une valeur.
+     *
+     * @param string $key La clé pour la condition WHERE.
+     * @param mixed $value La valeur pour la condition WHERE.
+     * @return array|false Les enregistrements trouvés ou false en cas d'erreur.
+     */
     public function read($key, $value) {
         try {
             $db = Database::getInstance();
@@ -19,6 +31,12 @@ class CommandeModel {
         }
     }
 
+    /**
+     * Crée une nouvelle commande dans la table commande.
+     *
+     * @param array $data Les données de la commande à insérer.
+     * @return bool True si l'insertion a réussi, false sinon.
+     */
     public function create($data) {
         $date = date("Y-m-d H:i:s");
         try {
