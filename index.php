@@ -38,6 +38,11 @@ switch ($route) {
         $controller = new LogoutController();
         break;
 
+    case 'commande': //Envoi vers l'envoi de la commande dans la BDD
+        require_once("./controller/CommandeController.php");
+        $controller = new CommandeController();
+        break;
+
     case "home": //Affichage du site
         default:
             require_once("./controller/HomeController.php");

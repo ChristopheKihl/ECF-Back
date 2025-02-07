@@ -18,6 +18,7 @@ let cardCreme = document.getElementById("creme");
 let commande = document.getElementById("panier");
 let client = document.getElementById("client");
 let optionAlimentation = document.getElementById("alimentation");
+let envoiCommande = document.getElementById("commande");
 
 optionAlimentation.addEventListener("click", trier);
 cardCreme.addEventListener("click", choixPizza);
@@ -273,6 +274,7 @@ function Panier() { //Partie gérant l'affichage du panier
     let user = document.getElementById("dejaclient");
 
     modale.innerHTML = "";
+    footermodale.innerHTML = "";
 
     let a = document.createElement('a');
     let div = document.createElement('div');
@@ -358,22 +360,16 @@ function Panier() { //Partie gérant l'affichage du panier
     divPrixTotal.appendChild(divCalculTotal);
     modale.appendChild(divPrixTotal);
 
-    //TODO : Passer les données de TabCommande vers PHP
-
-    console.log(JSON.stringify(tabCommande));
-
-
     if (user === null) {
-        let link = a.cloneNode();
-        link.setAttribute('href', 'index.php?route=commande');
         let commande = button.cloneNode();
         commande.setAttribute('type', 'button');
         commande.setAttribute('id', 'commande');
         commande.classList.add('btn', 'btn-outline-success');
         commande.textContent = "Commander";
-        link.appendChild(commande);
 
-        footermodale.appendChild(link);
+        commande.addEventListener("click", envoyerCommande);
+
+        footermodale.appendChild(commande);
     }
 
     let poubelle = document.querySelectorAll(".trash");
@@ -534,6 +530,25 @@ function envoiCuisine() { //Envoi des données pizza et client vers la cuisine
     buttonFin.addEventListener('click', () => {
         location.reload();
     })
+}
+
+async function envoyerCommande() {
+    console.log(tabCommande);
+    console.log(JSON.stringify(tabCommande));
+
+    try {
+        const response = await fetch('./index.php?route=commande', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(tabCommande)
+        });
+        await response.json();
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function save(state) {
