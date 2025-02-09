@@ -552,8 +552,15 @@ async function envoyerCommande() {
         save(1); //sauvegarde le tableau des commandes
 
         let modale = document.getElementById('modaleContent');
+        let footermodale = document.getElementById("footerModale");
 
         modale.innerHTML = '';
+
+        let message = document.createElement('div');
+        message.classList.add('alert', 'alert-success');
+        message.textContent = "VOTRE COMMANDE A ETE VALIDEE";
+        modale.appendChild(message);
+        footermodale.innerHTML = '';
 
 
 
