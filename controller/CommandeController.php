@@ -16,21 +16,32 @@ class CommandeController {
     }
 
     public function doPOST(){
-        header('Content-Type: application/json');
-        $input = json_decode(file_get_contents("php://input"), true);
+        session_start();
 
-        if (is_array($input)) {
-            $results = [];
-            foreach ($input as $item) {
-                $data = $this->model->create($item);
-                if ($data !== false) {
-                    $results[] = $data;
+        header('Content-Type: application/json');
+        $json = json_decode(file_get_contents("php://input"));
+
+        $id_client = $_SESSION['id'];
+        $id_pizza = '';
+        $quantite = '';
+        
+        foreach ($json as $data) {
+            foreach ($data as $key => $value) {
+
+                if($key === 'nomPizza'){
+                    $dataPizza = $this->model->readPizza($value); //Récupère l'ID de la pizza
+                    // var_dump($idPizza);
+                    foreach ($dataPizza as $key => $value) {
+                        $id_pizza = $value;
+                    }
+                }
+                if($key === 'quantite'){
+                    $quantite = $value;
                 }
             }
-            echo json_encode($results);
-        } else {
-            echo json_encode(['error' => 'Invalid input']);
+            $result = $this->model->createCommande($id_pizza,$id_client, $quantite);
         }
+        echo $result;
     }
 }
 ?>
