@@ -536,8 +536,6 @@ function envoiCuisine() { //Envoi des données pizza et client vers la cuisine
 
 async function envoyerCommande() {
 
-    console.log(JSON.stringify(tabCommande));
-
     try {
         const response = await fetch('./index.php?route=commande', {
             method: 'POST',
