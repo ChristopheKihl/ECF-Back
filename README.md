@@ -132,7 +132,7 @@ Voici la structure du projet :
 2. **Installez les dépendances**
   ```bash
   cd [nom_du_dossier]
-  composer require phpdotenv
+  composer install
   ```
 Choisir :
 ```bash
