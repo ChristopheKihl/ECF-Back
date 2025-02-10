@@ -143,8 +143,8 @@ Choisir :
   ```bash
   BASE='nom_de_la_BDD'
   SERVER='adresse_vers_la_BDD'
-  USER='nom_d'utilisateur_connexion_bdd
-  PASSWD='mot_de_passe_connexion_bdd
+  USER='nom_d\'utilisateur_connexion_bdd'
+  PASSWD='mot_de_passe_connexion_bdd'
 ```
 
 ## Auteur
