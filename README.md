@@ -114,6 +114,7 @@ Voici la structure du projet :
   │    ├── Layout.php # Vue PHP qui sert de template général
   │    ├── LoginView.php # Vue PHP gérant la page Login
   │    └── RegisterView.php # Vue PHP gérant la page d'inscription
+  ├── .env # Fichier contenant les variables d'environnement
   ├── composer.json # Fichier JSON indiquant les versions des dépendances
   ├── composer.json # Fichier JSON indiquant les versions des dépendances
   ├── Database.php # Fichier PHP permettant la connexion à la Base de Données
@@ -131,7 +132,7 @@ Voici la structure du projet :
 2. **Installez les dépendances**
   ```bash
   cd [nom_du_dossier]
-  composer require phpdotenv
+  composer install
   ```
 Choisir :
 ```bash
