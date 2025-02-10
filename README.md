@@ -134,10 +134,6 @@ Voici la structure du projet :
   cd [nom_du_dossier]
   composer install
   ```
-Choisir :
-```bash
-  [0]vlucas/phpdotenv
-  ```
 
 3. **Configurez l'environnement**\
    Créez un fichier .env à la racine du projet et ajoutez les variables d'environnement nécessaires :
