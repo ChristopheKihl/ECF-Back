@@ -10,21 +10,20 @@ require_once ("./Database.php");
 class CommandeModel {
 
     /**
-     * Lit les enregistrements de la table clients en fonction d'une clé et d'une valeur.
-     *
-     * @param string $key La clé pour la condition WHERE.
-     * @param mixed $value La valeur pour la condition WHERE.
-     * @return array|false Les enregistrements trouvés ou false en cas d'erreur.
-     */
-    public function read($key, $value) {
+ * Lit les enregistrements de la table pizza en fonction du nom de la pizza.
+ *
+ * @param string $value Le nom de la pizza.
+ * @return array|false L'ID de la pizza si trouvé, false en cas d'erreur.
+ */
+    public function readPizza($value) {
         try {
             $db = Database::getInstance();
             $stmt = $db->prepare(
-                "SELECT * FROM clients WHERE $key = :value"
+                "SELECT id_pizza FROM pizza WHERE nom_pizza = :value"
             );
             $stmt->bindParam(':value', $value);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
 
         } catch (PDOException $exc) {
             return false;
@@ -32,21 +31,23 @@ class CommandeModel {
     }
 
     /**
-     * Crée une nouvelle commande dans la table commande.
-     *
-     * @param array $data Les données de la commande à insérer.
-     * @return bool True si l'insertion a réussi, false sinon.
-     */
-    public function create($data) {
+ * Crée une nouvelle commande dans la table commande.
+ *
+ * @param int $pizza L'ID de la pizza commandée.
+ * @param int $client L'ID du client qui passe la commande.
+ * @param int $quantite La quantité de pizzas commandées.
+ * @return bool True si l'insertion a réussi, false sinon.
+ */
+    public function createCommande($pizza,$client, $quantite) {
         $date = date("Y-m-d H:i:s");
         try {
             $db = Database::getInstance();
             $stmt = $db->prepare(
                 "INSERT INTO commande (id_pizza, id_client, quantite_commande, date_commande) VALUES (:idpizza, :idclient, :quantite, :datecommande)"
             );
-            $stmt->bindParam(':idpizza', $data['value1']);
-            $stmt->bindParam(':idclient', $_SESSION['id']);
-            $stmt->bindParam(':quantite', $data['value3']);
+            $stmt->bindParam(':idpizza', $pizza);
+            $stmt->bindParam(':idclient', $client);
+            $stmt->bindParam(':quantite', $quantite);
             $stmt->bindParam(':datecommande', $date);
             $stmt->execute();
             return true;

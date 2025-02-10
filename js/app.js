@@ -274,7 +274,9 @@ function Panier() { //Partie gérant l'affichage du panier
     let user = document.getElementById("dejaclient");
 
     modale.innerHTML = "";
-    footermodale.innerHTML = "";
+    if (!user) {
+        footermodale.innerHTML = "";
+    }
 
     let a = document.createElement('a');
     let div = document.createElement('div');
@@ -533,8 +535,6 @@ function envoiCuisine() { //Envoi des données pizza et client vers la cuisine
 }
 
 async function envoyerCommande() {
-    console.log(tabCommande);
-    console.log(JSON.stringify(tabCommande));
 
     try {
         const response = await fetch('./index.php?route=commande', {
@@ -545,6 +545,22 @@ async function envoyerCommande() {
             body: JSON.stringify(tabCommande)
         });
         await response.json();
+
+        tabCommande.splice(0, tabCommande.length);
+        save(1); //sauvegarde le tableau des commandes
+
+        let modale = document.getElementById('modaleContent');
+        let footermodale = document.getElementById("footerModale");
+
+        modale.innerHTML = '';
+
+        let message = document.createElement('div');
+        message.classList.add('alert', 'alert-success');
+        message.textContent = "VOTRE COMMANDE A ETE VALIDEE";
+        modale.appendChild(message);
+        footermodale.innerHTML = '';
+
+
 
     } catch (error) {
         console.log(error);
