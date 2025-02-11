@@ -17,6 +17,6 @@ ob_start();
     </article>
 <?php
 $content = ob_get_clean();
-include "Layout.php";
+include "layout.php";
 
 ?>
